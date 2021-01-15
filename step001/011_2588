@@ -1,0 +1,24 @@
+// import
+// Scanner를 이용한 입력
+// 사칙연산
+// 몫 & 나머지를 이용한 자릿수 계산
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        int a = sc.nextInt();
+        int b = sc.nextInt();
+
+        int one = a * (b % 10);
+        int ten = a * ((b % 100) / 10);
+        int hundred = a * ((b % 1000) / 100);
+        
+        System.out.println(one);
+        System.out.println(ten);
+        System.out.println(hundred);
+        System.out.println(a * b);
+    }
+}
