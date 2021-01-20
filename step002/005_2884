@@ -1,3 +1,6 @@
+// if 구문 활용
+// 시계 구현
+
 import java.util.Scanner;
 
 public class Main{
