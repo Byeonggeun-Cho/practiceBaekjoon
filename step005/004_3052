@@ -1,0 +1,33 @@
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        int[] arr = new int[10];
+        
+        int check = 0;        // 같은 수 체크
+        int cnt = 0;          // 서로 다른 수의 개수
+        
+        for(int i=0; i<10; i++){
+        	arr[i] = sc.nextInt() % 42;
+        }
+
+        for(int i=0; i<10;i++){
+        	check = 0;
+
+          // 같은 수가 있는지 비교
+        	for(int j=i+1; j<10; j++) {
+        		if(arr[i] == arr[j]) {
+        			check ++;
+        		}
+        	}
+        	
+          // arr[i]와 같은 수를 가진 항목이 하나도 없는 경우
+        	if(check == 0) {
+        		cnt ++;
+        	}
+        }
+        System.out.println(cnt);
+    }
+}
