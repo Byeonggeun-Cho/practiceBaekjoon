@@ -1,0 +1,42 @@
+// 1차원 배열
+// 저장된 값을 변경하여 
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        // 과목 수
+        int subNum = sc.nextInt();
+        
+        // 과목 점수 저장 배열
+        double[] subArr = new double[subNum];
+        
+        // 과목 점수 저장
+        for(int i=0; i<subArr.length; i++){
+            subArr[i] = sc.nextInt();
+        }
+        
+        // 최대값
+        double max = subArr[0];
+        
+        // 최대값 찾기
+        for(int i=0; i<subArr.length; i++){
+            if(subArr[i] > max){
+                max = subArr[i];
+            }
+        }
+        
+        double sum = 0;
+        
+        // 최대값 기준에 맞추어 점수 재계산
+        for(int i=0; i<subArr.length; i++){
+            subArr[i] = (subArr[i]/max)*100;
+            sum += subArr[i];
+        }
+        
+        // 평균값 출력
+        System.out.println( sum/subNum );
+    }
+}
