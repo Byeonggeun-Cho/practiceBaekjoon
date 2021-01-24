@@ -1,0 +1,41 @@
+// Scanner nextInt() 사용 후 '\n'가 남아있으므로 잔여 값 처리 필요
+// 누적점수, 합산점수
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        // 반복횟수
+        int num = sc.nextInt();
+        sc.nextLine();
+        
+        // 전체 반복
+        for(int i=0; i<num; i++){
+            // 점수
+            int score = 0;
+            
+            // 답안 입력용 변수
+            String str = sc.nextLine();
+            
+            // 점수 계산용 배열
+            int[] scoreArr = new int[str.length()];
+            
+            // 합산점수
+            int sum = 0;
+            
+            for(int j=0; j<str.length(); j++){
+            	if(str.charAt(j) == 'O' || str.charAt(j) == 'o'){
+                    score ++;
+                    scoreArr[j] = score;
+                } else{
+                    score = 0;
+                    scoreArr[j] = score;
+                }
+                sum += scoreArr[j];
+            }
+            System.out.println(sum);
+        }
+    }
+}
