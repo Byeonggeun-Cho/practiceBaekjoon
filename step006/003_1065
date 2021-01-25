@@ -1,0 +1,61 @@
+// 한수 찾기
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        // 입력값
+        int x = sc.nextInt();
+        
+        System.out.println(countHanNumber(x));
+    }
+    
+    // 범위 내 한수의 개수 반환
+    public static int countHanNumber(int num){
+        // 개수 카운트
+        int cnt = 0;
+        
+        for(int i=1; i<=num; i++){
+            cnt += checkHanNumber(i);
+        }
+        
+        return cnt;
+    }
+    
+    // 한수 여부 반환(1 또는 0 반환)
+    public static int checkHanNumber(int num){
+    	// 1. 1회차 차이값 저장
+        // 2. 10의 자릿수 내림
+        // 3. 상위 자릿수 잔여여부 확인
+    	//     3.1. 상위 자릿수 남아있는 경우 n회차 차이값 과 1회차 차이값 비교
+    	//         3.1.1. 같은 경우 continue
+    	//         3.1.2. 다른 경우 0 반환
+    	//     3.2. 비교 대상이 없으므로 1 반환
+    	// 4. 최종단계까지 모두 진행했을 경우(차이값이 모두 같은 경우) 1 반환
+    	
+        
+    	// 1회차 차이값 = 1의 자릿수 - 10의 자릿수
+    	int diff = (num%10) - ((num/10)%10);
+    	
+    	// 10의 단위 시프트(Shift)
+    	num /= 10;
+    	
+    	// 임시 차이값
+    	int diffTemp = 0;
+    	
+    	// 상위 자릿수가 남아있는 경우 다음 회차의 차이값 계산
+    	while(num/10 > 0) {
+    		diffTemp = (num%10) - ((num/10)%10);
+    		num /= 10;
+    		
+    		// 차이값이 다른 경우
+    		if(diff != diffTemp) {
+    			return 0;
+    		}
+    	}
+
+    	return 1;
+    }
+}
