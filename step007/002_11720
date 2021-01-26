@@ -1,0 +1,24 @@
+// char -> int 변환하여 누적 합
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        // 숫자 개수
+        int number = sc.nextInt();
+        sc.nextLine();
+        
+        String str = sc.nextLine();
+    
+        // 누적 합계
+        int sum = 0;
+        
+        for(int i=0; i<number; i++) {
+            sum += str.charAt(i)-'0';
+        }
+        
+        System.out.println(sum);
+    }
+}
