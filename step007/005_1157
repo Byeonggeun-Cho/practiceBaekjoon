@@ -1,0 +1,49 @@
+
+import java.util.Scanner;
+
+public class Main{
+    public static void main(String[] args){
+        Scanner sc = new Scanner(System.in);
+        
+        // 대문자로 변환
+        String str = sc.nextLine().toUpperCase();
+        
+        // 누적횟수 저장용 배열
+        int[] cntArr = new int[26];
+        
+        // 해당 알파벳 인덱스의 값 증가
+        for(int i=0; i<str.length(); i++){
+            cntArr[str.charAt(i)-'A'] ++;
+        }
+        
+        // 최대 누적값
+        int max = 0;
+        
+        // 최대 누적값의 인덱스
+        int maxIndex = 0;
+        
+        // 최대값 확인
+        for(int i=0; i<cntArr.length; i++) {
+        	if(cntArr[i] > max) {
+        		max = cntArr[i];
+        		maxIndex = i;
+        	}
+        }
+        
+        // 중복여부 확인 변수
+        int same = 0;
+        
+        // 최대값 중복여부 확인
+        for(int i=0; i<cntArr.length; i++) {
+        	if(max == cntArr[i]) {
+        		same ++;
+        	}
+        }
+        
+        if(same>1){
+            System.out.println("?");
+        } else{
+            System.out.printf("%c\n", 'A' + maxIndex);
+        }
+    }
+}
