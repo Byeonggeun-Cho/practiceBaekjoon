@@ -15,7 +15,7 @@ public class Main{
         int one = a * (b % 10);
         int ten = a * ((b % 100) / 10);
 //      int hundred = a * ((b % 1000) / 100);   // 기존 작성 값
-        int hundred = a * (b / 100);            // 수정 값
+        int hundred = a * (b / 100);            // 수정 값 -> 입력값 제한(세자리 숫자)
         
         System.out.println(one);
         System.out.println(ten);
