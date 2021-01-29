@@ -1,5 +1,3 @@
-// char -> int 변환하여 누적 합
-
 import java.util.Scanner;
 
 public class Main{
