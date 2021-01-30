@@ -1,0 +1,53 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		InputStream in = System.in;
+		InputStreamReader isr = new InputStreamReader(in);
+		BufferedReader br = new BufferedReader(isr);
+		
+		try {
+      // 계차수열
+			// 값의 범위  층	  범위 내 숫자의 수
+			// 1          1	  1
+			// 2~7		    2	  6
+			// 8~19		    3	  12
+			// 20~37	    4	  18
+			// 38~61	    5	  24
+      
+			// 1. 층(=통과해야 하는 방) 수가 나뉘는 경계값 계산
+			//	1.1. 경계값 = 1 + 6*(층-1)
+			// 2. 방 번호와 경계값과 비교
+			
+			// 방 번호
+			int roomNum = Integer.parseInt(br.readLine().trim());
+            
+      // 층이 바뀌는 경계값
+			int borderValue = 1;
+			
+      // 층 값
+			int layer = 0;
+			
+      // 초기값(1번 방) 처리를 위한 최초 1회 수행
+			do {
+				layer ++;						// 1,  2,  3,  4, ...
+				borderValue += 6*(layer-1);		// 1,  7, 19, 37, ...
+			} while(borderValue < roomNum);
+			
+			System.out.println(layer);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				isr.close();
+				in.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
