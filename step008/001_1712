@@ -1,0 +1,49 @@
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		InputStream in = System.in;
+		InputStreamReader isr = new InputStreamReader(in);
+		BufferedReader br = new BufferedReader(isr);
+		
+		try {
+			String[] inputStr = br.readLine().trim().split(" ");
+            
+      // 고정비용
+			int fixedCost = Integer.parseInt(inputStr[0]);
+            
+      // 가변비용
+			int variableCost = Integer.parseInt(inputStr[1]);
+            
+      // 판매가격
+			int price = Integer.parseInt(inputStr[2]);
+			
+			// 손익분기점
+			// 손익 = 0인 지점
+			double result = ((double)fixedCost)/(price-variableCost);
+
+			// 손익분기적 생산개수
+			// 손익 > 0
+			int count = (int)Math.floor(result) + 1;
+			
+			if(count<0) {
+				count = -1;
+			}
+			
+			System.out.println(count);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+				isr.close();
+				in.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
