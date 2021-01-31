@@ -28,6 +28,8 @@ public class Main{
         	bw.write((a+b) + "\n");
         }
 
+        // 버퍼의 나머지 값들을 비워줌
+        br.flush();
         br.close();
         bw.close();
     }
