@@ -10,7 +10,7 @@ public class Main{
         
         int year = sc.nextInt();
         
-        // &&, || 연산자를 이용하여 하나의 로 표현할 수 있으나, 가시성을 위해 별도의 if 구문으로 구성
+        // &&, || 연산자를 이용하여 하나의 행으로 표현할 수 있으나, 가시성을 위해 별도의 if 구문으로 구성
         if(year % 4 == 0){
             if(year % 100 != 0){
                 System.out.println(1);
