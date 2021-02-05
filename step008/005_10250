@@ -1,0 +1,80 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+    public static void main(String[] args){
+    	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    	
+    	try {
+    		// 테스트 횟수
+    		int num = Integer.parseInt(br.readLine().trim());
+    		
+    		int height = 0;
+    		int width = 0;
+    		int guestNum = 0;
+    		
+    		for(int i=0; i<num; i++) {
+    			// 값 입력
+    			String[] str = br.readLine().trim().split(" ");
+
+    			// 높이
+    			height = Integer.parseInt(str[0]);
+    			
+    			// width는 전체 손님 수를 제한하는 수 이므로
+    			// guestNum <= height * width 의 전제조건에 따라 입력된다면
+    			// 사실상 계산에 사용되지 않는 값이므로 메모리 할당이 필요없다.
+    			// width = Integer.parseInt(str[1]);
+    			
+    			// 손님 번호
+    			guestNum = Integer.parseInt(str[2]);
+    			
+    			System.out.println(roomAssign(height, guestNum));
+    		}
+    	} catch(Exception e) {
+    		e.printStackTrace();
+    	} finally {
+    		try {
+    			br.close();
+    		} catch(Exception e) {
+    			e.printStackTrace();
+    		}
+    	}
+    }
+    
+    public static String roomAssign(int height, int guestNum) {
+    	// 칸(가로) 번호
+    	int x = 0;
+    	
+    	// 층(세로) 번호
+    	int y = 0;
+    	
+    	
+    	// 앞 칸부터 높이(height) 단위로 채워나간 뒤 칸 번호
+    	// 높이로 나누어 떨어지는 경우 -> 칸 그대로 유지
+    	// 높이로 나누어 떨어지지 않는 경우 -> 다음 칸으로 이동
+    	// int x = (guestNum % height == 0) ? (guestNum / height) :  (guestNum / height) + 1;
+    	if(guestNum % height == 0) {
+    		x = guestNum / height;
+    	} else {
+    		x = (guestNum / height) + 1;
+    	}
+
+    	// 높이(height) 단위로 채운 뒤 남은 칸의 층 번호
+    	// 높이로 나누어 떨어지는 경우 -> 최대 높이
+    	// 높이로 나누어 떨어지지 않는 경우 -> 층 그대로 유지
+    	// int y = (guestNum % height == 0) ? height : (guestNum % height) ;
+    	if(guestNum % height == 0) {
+    		y = height;
+    	} else {
+    		y = guestNum % height;
+    	}
+
+    	// 10보다 작은 경우 앞에 0을 붙여 문자열 타입으로 반환
+    	String xRoom = x<10 ? "0" + x : "" + x;
+    	
+    	// 문자열 타입으로 반환
+    	String yRoom = "" + y;
+    	
+    	return yRoom + xRoom;
+    }
+}
