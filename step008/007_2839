@@ -1,0 +1,58 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main{
+
+	public static void main(String[] args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        // 큰 봉투의 무게(상수)
+        final int BIG_KG = 5;
+        
+        // 작은 봉투의 무게(상수)
+        final int SMALL_KG = 3;
+
+        try {
+        	int kg = Integer.parseInt(br.readLine().trim());
+        	
+        	System.out.println(calcBags(kg, BIG_KG, SMALL_KG));
+        
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } finally {
+        	try {
+        		
+        		br.close();
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+	}
+	
+	public static int calcBags(int kg, int bigKg, int smallKg) {
+		
+		// 큰 봉투의 개수
+		int big = 0;
+		
+		// 작은 봉투의 개수
+    	int small = 0;
+    	
+    	// 큰 봉투를 가장 이용할 수 있는 경우부터 시작 -> 큰 봉투의 개수를 줄여가며 정확한 무게에 도달할 때까지 반복
+    	for(int i=kg/bigKg; i>=0; i--) {
+    		big = i;
+    		
+    		// 전체 무게에서 큰 봉투가 차지하는 무게를 제외한 나머지 무게에 대해
+    		// 작은 봉투의 개수를 늘려가며 정확한 무게에 도달할 때까지 반복
+    		for(int j=0; j<=kg-(big*bigKg); j++) {
+    			small = j;
+
+    			// 큰 봉투 무게*큰 봉투 개수 + 작은 봉투 무게*작은 봉투 개 = 목표 무게이면 합산 개수 반환
+    			if( kg == big*bigKg + small*smallKg ) {
+    				return big + small;
+    			}
+    		}
+    	}
+    	// 목표무게를 정확하게 만들 수 없는 경우 -1 반환
+    	return -1;
+	}
+}
