@@ -1,6 +1,3 @@
-// BufferedReader / BufferedWriter 사용
-// StringTokenizer 
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
