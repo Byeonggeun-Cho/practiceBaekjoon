@@ -1,5 +1,3 @@
-// for 반복문 -> i 
-
 import java.util.Scanner;
 
 public class Main{
