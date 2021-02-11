@@ -1,0 +1,47 @@
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main{
+
+	public static void main(String[] args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        
+        try {
+        	// 입력값
+        	int num = Integer.parseInt(br.readLine().trim());
+        	
+        	// num이 1이 아닐 때
+        	if(num!=1) {
+        		
+        		// num을 나누어 1보다 큰 경우 반복
+        		while(num>1) {
+        			// 2부터 num까지 증가하며 약수 탐색
+        			for(int i=2; i<=num; i++) {
+        				// 약수: 정수 몫으로 나누어 떨어지는 수
+        				if(((double)num/i)%1 == 0) {
+        					// 해당 수 출력
+        					System.out.println(i);
+        					
+        					// num을 나눈 수로 변환
+        					num /= i;
+        					
+        					// 반복문 종료
+        					// 다시 2부터 약수 탐색 시작
+        					break;
+        				}
+        			}
+        		}
+        	}
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } finally {
+        	try {
+        		
+        		br.close();
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+	}
+}
