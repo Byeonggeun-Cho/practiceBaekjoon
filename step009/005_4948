@@ -1,0 +1,75 @@
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main{
+
+	public static void main(String[] args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
+        	int check = 0;
+        	
+        	while(true) {
+        		check = Integer.parseInt(br.readLine().trim());
+        		
+        		if(check == 0) {
+        			break;
+        		}
+        		
+        		// checkBP
+        		// BP: Bertrand's postulate
+        		System.out.println(checkBPcnt(check));
+        	}
+        	
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } finally {
+        	try {
+
+        		br.close();
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+	}
+	
+	public static int checkBPcnt(int num) {
+		int cnt = 0;
+		
+		int maxNum = num * 2;
+		
+		// 두 수의 차이값+1 만큼의 크기를 가진 배열 생성
+    	int[] arr = new int[maxNum+1];
+
+    	// 두 수 사이의 값을 차례대로 배열에 입력
+    	// ...
+    	for(int i=0; i<maxNum+1; i++) {
+    		arr[i] = i+1;
+    	}
+    	
+    	// arr[0]:1은 소수에서 제외
+    	arr[0] = -1;
+
+    	// 2~최대범위가 i의 제곱보다 작은 경우
+    	for(int i=2; i*i<=maxNum; i++) {
+    		for(int j=i*i; j<=maxNum; j+=i) {	// j: i를 제외한 i의 배수
+    			// arr[j]의 값이 num 이하인 값은 처리에서 제외
+    			if(j>=num) {
+    				// 배열의 인덱스는 0부터 시작하므로
+    				// 인덱스-1 == 저장된 값
+    				arr[j-1] = -1;
+    			}
+    		}
+    	}
+    	
+    	// 소수의 개수 카운트
+    	for(int i=num; i<maxNum; i++) {
+    		if(arr[i] != -1) {
+    			cnt++;
+    		}
+    	}
+		
+		return cnt;
+	}
+}
