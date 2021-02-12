@@ -1,0 +1,87 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main{
+
+	public static void main(String[] args){
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
+        	
+        	// 입력 개수
+        	int num = Integer.parseInt(br.readLine().trim());
+     
+        	// 소수 배열 초기화
+        	// 소수가 아닌 수는 -1로 초기화
+        	// checkPrimeNum(maxNum)
+        	int[] arr = checkPrimeNum(10000);
+        	
+        	int checkNum = 0;
+        	
+        	for(int i=0; i<num; i++) {
+        		checkNum = Integer.parseInt(br.readLine().trim());
+        		
+        		// checkGC
+        		// GC: Goldbach's conjecture
+        	
+        		checkGC(arr, checkNum);
+        	}
+        	
+        	
+        } catch(Exception e) {
+        	e.printStackTrace();
+        } finally {
+        	try {
+
+        		br.close();
+        	} catch(Exception e) {
+        		e.printStackTrace();
+        	}
+        }
+	}
+	
+	public static int[] checkPrimeNum(int maxNum) {
+		int[] arr = new int[maxNum];
+		
+    	// 두 수 사이의 값을 차례대로 배열에 입력
+    	// ...
+    	for(int i=0; i<maxNum; i++) {
+    		arr[i] = i+1;
+    	}
+    	
+    	// arr[0]:1은 소수에서 제외
+    	arr[0] = -1;
+
+    	// 2~최대범위가 i의 제곱보다 작은 경우
+    	for(int i=2; i*i<=maxNum; i++) {
+    		for(int j=i*i; j<=maxNum; j+=i) {	// j: i를 제외한 i의 배수
+    			// arr[j]의 값이 num 이하인 값은 처리에서 제외
+				arr[j-1] = -1;
+    		}
+    	}
+    	
+    	return arr;
+	}
+	
+	public static void checkGC(int[] arr, int num) {
+		
+		// 인덱스 저장 변수
+    	int idx1 = 0;
+    	int idx2 = 0;
+    	
+    	// 두 값의 차이가 가장 작은 소수짝은 num/2에 가장 가까운 두 값의 쌍으로 구성
+    	// num/2-1부터 탐색 시작 (인덱스 = 값-1 이므로)
+    	for(int i=num/2-1; i<num-1; i++) {
+    		for(int j=1; j<=i; j++) {
+    			if(arr[i] + arr[j] == num) {
+    				idx1 = i;
+    				idx2 = j;
+    				
+    				// 조건에 부합하는 수가 확인될 경우 출력 후 함수 종료
+    				System.out.println(arr[idx2] + " " + arr[idx1]);
+    				return;
+    			}
+    		}
+    	}
+	}
+}
