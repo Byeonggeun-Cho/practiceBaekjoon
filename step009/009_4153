@@ -1,0 +1,71 @@
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// 네 개의 좌표가 축에 평행한 직사각형을 이루기 위해서는
+		// x축, y축에 평행한 네 개의 선으로 사각형을 구성해야 하며,
+		// 두 개의 x좌표, 두 개의 y좌표로 구성되어야 한다.
+		// 따라서, 주어진 세 개의 좌표 중
+		// 중복되지 않은 x, y좌표를 선택하면 나머지 하나의 좌표를 구할 수 있다.
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			while(true) {
+				String[] str = br.readLine().trim().split(" " );
+				int[] numbers = new int[3];
+				
+				for(int i=0; i<3; i++) {
+					numbers[i] = Integer.parseInt(str[i]);
+				}
+				
+				if(numbers[0] == 0 && numbers[1] == 0 && numbers[2] == 0 ) {
+					break;
+				} else {
+					// 빗변(최대값)
+					int max = -1;
+					// 너비
+					int width = -1;
+					// 높이
+					int height = -1;
+					
+					// 각 변 설정
+					for(int i=0; i<3; i++) {
+						// 빗변 = 최대값
+						if(numbers[i] > max) {
+							max = numbers[i];
+						}
+					}
+					
+					for(int i=0; i<3; i++) {
+						// 빗변이 아닌 두 값에 대해
+						if(numbers[i] != max) {
+							// 남은 2개의 수를 너비와 높이에 각각 임의 배정
+							if(width == -1) {
+								width = numbers[i];
+							} else {
+								height = numbers[i];
+							}
+						}
+					}
+
+					// 너비^2 + 높이^2 = 빗변^2 이면 "right", 아니면 "wrong" 출력
+					String result = Math.pow(width, 2) + Math.pow(height, 2) == Math.pow(max, 2) ? "right" : "wrong";
+					
+					System.out.println(result);
+				}
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
