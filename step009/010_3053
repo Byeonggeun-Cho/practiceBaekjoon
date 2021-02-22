@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			// 반지름
+			int r = Integer.parseInt(br.readLine().trim());
+			
+			// 유클리드 기하 원의 넓이
+			double uArea = Math.PI * r * r;
+			
+			// 택시 기하 원의 넓이
+			// == 빗변의 길이가 r인 마름모
+			// ( (2*r) * (2*r) ) / 2
+			double tArea = 2 * r * r;
+			
+			System.out.printf("%.6f\n", uArea);
+			System.out.printf("%.6f", tArea);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
