@@ -1,0 +1,76 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		// 두 원의 교차점 개수 판단
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			// 결과
+			int result = 0;
+			
+			// 입력 반복 횟수
+			int repeat = Integer.parseInt(br.readLine().trim());
+			
+			// 반복
+			for(int i=0; i<repeat; i++) {
+				String[] str = br.readLine().trim().split(" " );
+				
+				int x1 = Integer.parseInt(str[0]);
+				int y1 = Integer.parseInt(str[1]);
+				int r1 = Integer.parseInt(str[2]);
+				
+				int x2 = Integer.parseInt(str[3]);
+				int y2 = Integer.parseInt(str[4]);
+				int r2 = Integer.parseInt(str[5]);
+				
+				// 중심점 사이의 거리
+				double gap = Math.sqrt( Math.pow(Math.abs(x1 - x2), 2)
+										+ Math.pow(Math.abs(y1 - y2), 2)
+						  			  );
+				
+				// 두 원의 중심이 동일한 경우
+				if(x1 == x2 && y1 == y2) {
+					// 반지름이 동일한 경우 == 무한대
+					if(r1 == r2) {
+						result = -1;
+					// 반지름이 다른 경우  == 교차점 없음
+					} else {
+						result = 0;
+					}
+					
+				// 두 원의 중심점이 동일하지 않은 경우
+				} else{
+					// 하나의 원 안에 다른 원이 접하지 않고 들어있는 경우
+					if(r1 > gap + r2 || r2 > gap + r1) {
+						result = 0;
+
+					// 두 원의 교차점이 1개인 경우
+					// 	1. 두 원이 나란히 접하는 경우
+					// 	2. 하나의 원 안에 다른 원이 접하는 경우
+					} else if(r1 + r2 == gap
+								|| r1 == gap + r2
+								|| r2 == gap + r1 ) {
+						result = 1;
+					// 두 원의 교차점이 없는 경우
+					} else if(gap > r1 + r2) {
+						result = 0;
+					} else {
+						result = 2;
+					}
+				}
+				System.out.println(result);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
