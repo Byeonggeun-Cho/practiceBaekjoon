@@ -1,0 +1,33 @@
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
+public class Main {
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		try {
+			String[] str = br.readLine().trim().split(" ");
+			
+			int x = Integer.parseInt(str[0]);
+			int y = Integer.parseInt(str[1]);
+			int w = Integer.parseInt(str[2]);
+			int h = Integer.parseInt(str[3]);
+			
+			// (0,0) 또는 (w,h) 까지의 x, y축 거리 중 더 작은 값 반환
+			int boundaryX = Math.min(Math.abs(x-w), Math.abs(x));
+			int boundaryY = Math.min(Math.abs(y-h), Math.abs(y));
+			
+			// x, y 축 중 더 짧은 거리로 이동하는 값 출력
+			System.out.println(Math.min(boundaryX, boundaryY));
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
