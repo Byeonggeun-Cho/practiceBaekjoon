@@ -1,0 +1,70 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		// System.out.println() 으로 출력 시 시간 초과 발생
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			String[] str = br.readLine().trim().split(" ");
+			
+			int n = Integer.parseInt(str[0]);
+			int m = Integer.parseInt(str[1]);
+			
+			String[] arr = br.readLine().trim().split(" ");
+			
+			int[] numArr = new int[arr.length];
+			
+			for(int i=0; i<numArr.length; i++) {
+				numArr[i] = Integer.parseInt(arr[i]);
+			}
+			
+			// m과의 차이값
+			int gap = m;
+			
+			// 임시 차이값 저장 변수
+			int temp = 0;
+			
+			// 임시 합계
+			int tempSum = 0;
+			
+			// 최종 합계
+			int sum = 0;
+			
+			for(int i=0; i<numArr.length-2; i++) {
+				for(int j=i+1; j<numArr.length-1; j++) {
+					for(int k=j+1; k<numArr.length; k++) {
+						tempSum = numArr[i] + numArr[j] + numArr[k];
+						
+						if(tempSum <= m) {
+							temp = m - tempSum;
+							
+							if(temp < gap) {
+								gap = temp;
+								sum = numArr[i] + numArr[j] + numArr[k];
+							}
+						}
+					}
+				}
+			}
+			
+			bw.write(String.valueOf(sum));
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
