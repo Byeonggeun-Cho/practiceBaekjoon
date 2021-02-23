@@ -1,0 +1,60 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+	public static void main(String[] args) {
+		// 하노이 탑
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int num = Integer.parseInt(br.readLine().trim());
+
+			// 값 저장용 리스트
+			List<String> str = new ArrayList<String>();
+			
+			// 원판개수, 시작점, 중간점, 끝점, 저장소
+			str = hanoi(num, 1, 2, 3, str);
+			
+			// 저장된 값의 개수 = 이동횟수 = list.size()
+			System.out.println(str.size());
+			
+			// 값을 하나씩 꺼내어 출력
+			for(int i=0; i<str.size(); i++) {
+				bw.write(str.get(i) + "\n");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	// 하노이 탑 재귀함수
+	// 1. 원판이 1개인 경우 다른 기둥으로 옮긴다.
+	// 2. 원판이 n개인 경우
+	//	2.1. 1번 기둥의 n개 원판 중 n-1개를 2번 기둥으로 옮긴다.
+	//	2.2. 1번 기둥의 n번째 원판을 3번 기둥으로 옮긴다.
+	//	2.3. 2번 기둥의 n-1개를 3번 기둥으로 옮긴다.
+	public static List<String> hanoi(int num, int from, int temp, int end, List<String> str) {
+		if(num == 1) {
+			str.add(from + " " + end);
+		} else {
+			hanoi(num-1, from, end, temp, str);
+			str.add(from  + " " + end);
+			hanoi(num-1, temp, from, end, str);
+		}
+		return str;
+	}
+}
