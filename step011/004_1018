@@ -1,0 +1,106 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+	public static void main(String[] args) {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			String[] str = br.readLine().trim().split(" " );
+			
+			// 행, 열
+			int row = Integer.parseInt(str[0]);
+			int col = Integer.parseInt(str[1]);
+			
+			// 행*열 크기의 2차원 배열 선언
+			char[][] board = new char[row][col];
+
+			// 입력값을 배열에 저장
+			for(int i=0; i<row; i++) {
+				String bRow = br.readLine().trim();
+				
+				for(int j=0; j<col; j++) {
+					board[i][j] = bRow.charAt(j);
+				}
+			}
+
+			// 다시 칠해야 하는 칸의 수를 저장하는 리스트(모든 경우의 수)
+			List<Integer> diffList = new ArrayList<Integer>();
+			
+			// 첫 칸이 W인 경우
+			int diff1 = 0;
+			// 첫 칸이 B인 경우
+			int diff2 = 0;
+			
+			// 행 이동 가능한 경우의 수
+			int rMax = row-8;
+			// 열 이동 가능한 경우의 수
+			int cMax = col-8;
+			
+			// 8*8 묶음 단위로 행, 열을 이동하며 비교
+			for(int r=0; r<=rMax; r++) {
+				for(int c=0; c<=cMax; c++) {
+					for(int i=r; i<r+8; i++) {
+						for(int j=c; j<c+8; j++) {
+							// 0,0 칸으로부터 한 칸 건너 칸
+							if( (i%2 + j%2)%2 == 0 ) {
+								if(board[i][j] != 'W') {
+									diff1++;
+								}
+								
+								if(board[i][j] != 'B') {
+									diff2++;
+								}
+								
+							// 0,1 칸으로부터 한 칸 건너 칸
+							} else {
+								if(board[i][j] == 'W') {
+									diff1++;
+								}
+								
+								if(board[i][j] == 'B') {
+									diff2++;
+								}
+							}
+						}
+					}
+					
+					// 두 값중 더 작은 값을 리스트에 저장
+					diffList.add(diff1 < diff2 ? diff1 : diff2);
+					// 값 초기화
+					diff1 = 0;
+					diff2 = 0;
+				}
+			}
+			
+			// 최대 변경 가능한 값 == 모든 칸 변경
+			int min = 8 * 8;
+			
+			// 리스트에 있는 변경 값 경우의 수를 하나씩 꺼내어
+			// 가장 적게 변경하는 경우의 수를 min 변수에 저장
+			for(int value: diffList) {
+				min = Math.min(value, min);
+			}
+			
+			// 출력
+			System.out.println(min);
+		
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
