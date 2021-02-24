@@ -6,9 +6,6 @@ import java.io.OutputStreamWriter;
 
 public class Main {
 	public static void main(String[] args) {
-		// 생성자와 분해합
-		// 생성자 + 생성자의 각 자릿수의 합 = 분해합
-		
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		
