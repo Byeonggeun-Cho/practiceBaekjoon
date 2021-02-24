@@ -1,0 +1,62 @@
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) {
+		// 생성자와 분해합
+		// 생성자 + 생성자의 각 자릿수의 합 = 분해합
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int m = Integer.parseInt(br.readLine().trim());
+			
+			int result = 0;
+			
+			// 임시변수
+			int temp = 0;
+			// tempSum = i + i의 각 자릿수
+			int tempSum = 0;
+			
+			// 분해합보다 작은 값 범위 내에서 생성자 탐색
+			for(int i=1; i<m; i++) {
+				// i를 임시저장
+				temp = i;
+				// temp 저장(초기화)
+				tempSum = temp;
+				
+				// temp의 각 자릿수 접근
+				while(temp > 0) {
+					// temp의 1의자리 수를 tempSum에 더함
+					tempSum += temp%10;
+					// temp 자릿수 이동
+					temp /= 10;
+				}
+				
+				// 자릿수 합이 m과 같아질 때 중단
+				// 최소 생성자 == 가장 큰 범위를 차지하는 값(i)이 가장 작은 경우
+				if(tempSum == m) {
+					result = i;
+					break;
+				}
+			}
+			
+			System.out.println(result);
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
