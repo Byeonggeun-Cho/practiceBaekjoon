@@ -1,0 +1,48 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+
+public class Main {
+	public static void main(String[] args) {
+		// 666, 1666, ..., 6660, 6661, ...
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int num = Integer.parseInt(br.readLine().trim());
+			
+			int cnt = 0;
+			int i = 665;
+
+			String str = "";
+			
+			while(cnt < num) {
+				i++;
+				
+				str = String.valueOf(i);
+				
+        // "666"포함 여부에 따라 카운트 증가
+				for(int j=0; j<str.length()-2; j++) {
+					if(str.indexOf("666") != -1) {
+						cnt++;
+						break;
+					}
+				}
+			}
+			
+			bw.write(String.valueOf(i));
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+}
