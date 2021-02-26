@@ -1,0 +1,79 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+public class Main {
+	public static void main(String[] args) {
+		// 계수정렬(Counting Sort)
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int num = Integer.parseInt(br.readLine().trim());
+			
+			int[] arr = new int[num];
+			
+			for(int i=0; i<arr.length; i++) {
+				arr[i] = Integer.parseInt(br.readLine().trim());
+			}
+			
+			int max = 0;
+			
+			for(int i=0; i<arr.length; i++) {
+				max = Math.max(max, arr[i]);
+			}
+			
+			int[] cntArr = new int[max];
+			
+			for(int i=0; i<arr.length; i++) {
+				// arr[i] == 1인 경우
+				// cntArr[0] += 1;
+				cntArr[arr[i]-1] ++;
+			}
+			
+			// 누적합 -> 동일한 숫자 묶음의 절대적 위치 중 마지막 값 지정
+			// 개수		1 3개,		2 2개,		3 4개, ...
+			//		->	1,1,1, 		2,2,		3,3,3,3, ...
+			// 위치	->	0,1,2,		3,4,		5,6,7,8, ...
+			for(int i=1; i<cntArr.length; i++) {
+				cntArr[i] = cntArr[i-1] + cntArr[i];
+			}
+
+			// 결과 저장용 배열
+			int[] resultArr = new int[num];
+
+			// arr의 뒤에서부터 진행 -> 안정정렬
+			// arr[i]의 값 -> cntArr[]의 인덱스+1
+			// ex)	7 -> 6 + 1
+			// 		cntArr[6]의 값 == 누적합 == 최종 배열에서 해당 값의 위치 -> resultArr[]의 인덱스
+			// 		cntArr[6]의 값 1 감소
+			for(int i=arr.length-1; i>=0; i--) {
+				resultArr[cntArr[arr[i]-1]-1] = arr[i];
+				cntArr[arr[i]-1] --;
+				
+			}
+			
+			for(int i=0; i<resultArr.length; i++) {
+				bw.write(String.valueOf(resultArr[i] + "\n"));
+			}
+			bw.write("\n");
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+}
