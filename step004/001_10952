@@ -1,6 +1,3 @@
-// while 반복구문
-// if, break 이요한 조건부 탈출
-
 import java.util.Scanner;
 
 public class Main{
