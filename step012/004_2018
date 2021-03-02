@@ -1,4 +1,3 @@
-// 오류 발생으로 수정 
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -42,36 +41,36 @@ public class Main {
 			// 오름차순 정렬
 			
 			// 정렬을 위한 임시변수
-			// 빈도 저장 배열
-			int[] countArr = new int[RANGE*2 + 1];
-			
 			// 누적 인덱스 배열
-			int[] tempArr = new int[RANGE*2 + 1];
+			int[] countArr = new int[RANGE*2 + 1];
 
-			
-			// 빈도 저장
+			// 빈도 저장 배열
 			for(int i=0; i<arr.length; i++) {
 				countArr[arr[i] + RANGE]++;
 			}
 			
 			// 누적하여 인덱스 시작위치 지정
+			// 누적 인덱스 저장 배열
+			// 깊은복사
+			int[] tempArr = new int[countArr.length];
+			
+			for(int i=0; i<countArr.length; i++) {
+				tempArr[i] = countArr[i];
+			}
+			
 			for(int i=1; i<tempArr.length; i++) {
-				tempArr[i] = countArr[i-1] + countArr[i];
+				tempArr[i] = tempArr[i-1] + tempArr[i];
 			}
 			
 			int[] resultArr = new int[arr.length];
 			
-			for(int i=0; i<arr.length; i++) {
-				System.out.println("i:" + i);
-				System.out.println("arr[i]: " + arr[i]);
-				System.out.println("arr[i] + 4000: " + arr[i] + RANGE);
-				System.out.println("tempArr[arr[i] + 4000]: " + tempArr[arr[i]+RANGE]);
-				System.out.println("arr[i]: " + arr[i]);
-				resultArr[tempArr[arr[i] + RANGE]--] = arr[i];
+			for(int i=arr.length-1; i>=0; i--) {
+				resultArr[tempArr[arr[i] + RANGE]-1] = arr[i];
+				tempArr[arr[i] + RANGE]--;
 			}
 			
 			arr = resultArr;
-			
+
 			// 산술평균
 			bw.write(String.valueOf((int)(Math.round((double)sum/num))) + "\n");
 			
@@ -82,11 +81,11 @@ public class Main {
 			int modeVal = 0;
 			// 입력값이 1개인 경우
 			if(num == 1) {
-				modeVal = num;
+				modeVal = arr[0];
 			// 입력값이 여러개인 경우
 			} else {
 				// 최대 빈도값
-				int maxMode = 0;
+				int maxMode = -RANGE;
 				
 				// 최대 빈도값의 수
 				int maxModeCnt = 0;
@@ -102,7 +101,7 @@ public class Main {
 				}
 				
 				// 최대 빈도값을 갖는 수가 1개인 경우
-				if(maxModeCnt < 2) {
+				if(maxModeCnt == 1) {
 					for(int i=0; i<countArr.length; i++) {
 						if(maxMode == countArr[i]) {
 							modeVal = i - RANGE;
