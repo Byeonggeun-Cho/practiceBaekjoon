@@ -1,0 +1,96 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class Main {
+	public static void main(String[] args) {
+		// 단어정렬
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int num = Integer.parseInt(br.readLine().trim());
+
+			List<Member> list = new ArrayList<Member>();
+			
+			int no = 0;
+
+      // 객체 생성하여 값 저장
+			for(int i=0; i<num; i++, no++) {
+				
+				String[] str = br.readLine().trim().split(" ");
+				
+				Member member = new Member(no, Integer.parseInt(str[0]), str[1]);
+				
+				list.add(member);
+			}
+			
+			Collections.sort(list, new Comparator<Member>() {
+				public int compare(Member m1, Member m2) {
+					if(m1.getAge() > m2.getAge()) {
+						return 1;
+					} else if(m1.getAge() < m2.getAge()) {
+						return -1;
+					} else {
+						if(m1.getNo()>m2.getNo()) {
+							return 1;
+						} else {
+							return -1;
+						}
+					}
+				}
+			});
+			
+			for(Member m : list) {
+				bw.write(m.getAge() + " " + m.getName() + "\n");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}	
+}
+
+class Member {
+	private int no;
+	private int age;
+	private String name;
+	
+	public Member(int no, int age, String name) {
+		super();
+		this.no = no;
+		this.age = age;
+		this.name = name;
+	}
+	public int getNo() {
+		return no;
+	}
+	public void setNo(int no) {
+		this.no = no;
+	}
+	public int getAge() {
+		return age;
+	}
+	public void setAge(int age) {
+		this.age = age;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+}
