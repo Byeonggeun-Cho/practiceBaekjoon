@@ -1,1 +1,68 @@
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+public class Test08 {
+	public static void main(String[] args) {
+		// 단어정렬
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		
+		try {
+			int num = Integer.parseInt(br.readLine().trim());
+			
+			// set에 1차 저장하여 중복 제거
+			Set<String> set = new HashSet<String>();
+			
+			for(int i=0; i<num; i++) {
+				set.add(br.readLine().trim());
+			}
+
+			// list로 변환
+			List<String> list = new ArrayList<String>(set);
+			
+			// sort함수 내 compare()를 재정의하여 사용
+			Collections.sort(list, new Comparator<String>() {
+				// 재정의한 compare()에 따라 정렬
+				public int compare(String s1, String s2) {
+					// 문자열의 길이가 왼쪽이 더 큰 경우 1 반환 == 자리바꿈
+					if(s1.length() > s2.length()) {
+						return 1;
+					// 문자열의 길이가 오른쪽이 더 큰 경우 -1 반환 == 자리바꿈 X
+					} else if(s1.length() < s2.length()) {
+						return -1;
+					// 길이가 같은 경우 comparTo()로 값 비교
+					// 문자열이 같으면 0(set으로 중복 제거했으므로 존재 X)
+					// 사전배열의 앞에 있을수록 낮은 값으로 비교됨
+					// 왼쪽 값이 크면 1, 오른쪽 값이 크면-1 반환
+					} else {
+						return s1.compareTo(s2);
+					}
+				}
+			});
+
+			// 향상된 for문으로 list에서 문자열을 하나씩 꺼내어 출력
+			for(String str : list) {
+				bw.write(str + "\n");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				bw.flush();
+				bw.close();
+				br.close();
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}	
+}
